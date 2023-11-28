@@ -23,6 +23,21 @@ app.get('/api/quotes/', (req, res, next) => {
   }
 });
 
+app.post('/api/quotes/', (req, res, next) => {
+  const person = req.query.person;
+  const quote = req.query.quote;
+  if (person && quote) {
+    const newQuote = {};
+    newQuote.person = person;
+    newQuote.quote = quote;
+    quotes.push(newQuote);
+    console.log(newQuote);
+    res.send({ quote: newQuote });
+  } else {
+    res.status(400).send('Unable to add new quote, check that author and quote exist');
+  }
+});
+
 app.listen(PORT, (req, res, next) => {
   console.log(`listening on port ${PORT}`);
 });
